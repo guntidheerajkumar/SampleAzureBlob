@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<br />
+<strong>Container Info: </strong> <br /> @ViewBag.ContainerName
+<br /><br />
+<strong>List of Blobs:</strong>
+<table>
+    @if (ViewBag.Blobs.Count > 0)
+    {
+        @foreach (var item in @ViewBag.Blobs)
+        {
+            <tr>
+                <td>
+                    <a href=@item.StorageUri.PrimaryUri target="_blank">@item.StorageUri.PrimaryUri</a>
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td>
+                <p>No Blobs in this Container</p>
+            </td>
+        </tr>
+    }
+</table>
+<br />
+<br />
+<form asp-action="UploadFiles"
+      asp-controller="Home"
+      method="post"
+      enctype="multipart/form-data">
+    <input type="file" name="files" multiple />
+    <br />
+    <input type="submit" value="Upload Selected Files" />
+</form>
+
